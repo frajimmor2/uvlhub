@@ -52,7 +52,7 @@ READ BY ID
 @login_required
 def get_notepad(notepad_id):
     notepad = notepad_service.get_or_404(notepad_id)
-    
+ 
     if notepad.user_id != current_user.id:
         flash('You are not authorized to view this notepad', 'error')
         return redirect(url_for('notepad.index'))
@@ -109,5 +109,5 @@ def delete_notepad(notepad_id):
         flash('Notepad deleted successfully!', 'success')
     else:
         flash('Error deleting notepad', 'error')
-    
+
     return redirect(url_for('notepad.index'))
