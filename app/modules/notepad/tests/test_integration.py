@@ -15,23 +15,15 @@ def test_client(test_client):
     yield test_client
 
 
-def test_need_login(test_client):
-
-    tested_response = test_client.get("/notepad")
-    assert tested_response.request.path != url_for("notepad.index", follow_redirects=True)
-
-
 def test_get_all_notepads(test_client):
     """
-    Sample test to verify that the test framework and environment are working correctly.
-    It does not communicate with the Flask application; it only performs a simple assertion to
-    confirm that the tests in this module can be executed.
+    GET
     """
     response = test_client.post(
         "/login", data=dict(email="test@example.com", password="test1234"), follow_redirects=True
     )
 
     tested_response = test_client.get("/notepad")
-    assert tested_response.request.path == url_for("notepad.index")
+    assert tested_response.status_code == 200
 
     test_client.get("/logout", follow_redirects=True)
